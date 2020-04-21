@@ -1,0 +1,2 @@
+rootProject.name='ApolloFrontPage'
+include ':app'
