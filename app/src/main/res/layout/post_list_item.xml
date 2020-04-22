@@ -2,10 +2,38 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".PostListAdapter" />
+    <data>
 
+        <variable
+            name="data"
+            type="com.quipper.android.apollofrontpage.fragment.PostDetails" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{@string/title(data.title)}"
+            tools:context=".PostListAdapter" />
+
+        <TextView
+            android:id="@+id/author"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{@string/author_name(data.author.firstName, data.author.lastName)}"
+            tools:context=".PostListAdapter" />
+
+        <TextView
+            android:id="@+id/votes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{@string/votes(data.votes)}"
+            tools:context=".PostListAdapter" />
+    </LinearLayout>
 </layout>

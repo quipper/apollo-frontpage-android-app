@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">ApolloFrontPage</string>
+
+    <string name="title">Title: %s</string>
+    <string name="author_name">Author: %1$s %2$s</string>
+    <string name="votes">Votes: %d</string>
 </resources>
