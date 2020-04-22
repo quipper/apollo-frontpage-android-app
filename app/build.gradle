@@ -55,16 +55,19 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
 
-    implementation 'com.apollographql.apollo:apollo-runtime:1.4.5'
-    implementation 'com.apollographql.apollo:apollo-android-support:1.4.5'
+    implementation 'com.apollographql.apollo:apollo-runtime:2.0.0'
+    implementation 'com.apollographql.apollo:apollo-android-support:2.0.0'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
     implementation "androidx.fragment:fragment-ktx:1.2.4"
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
 
     // for apollo library
     compileOnly 'org.jetbrains:annotations:13.0'
     testCompileOnly 'org.jetbrains:annotations:13.0'
+
+    implementation "com.apollographql.apollo:apollo-normalized-cache-sqlite:2.0.0"
 }
