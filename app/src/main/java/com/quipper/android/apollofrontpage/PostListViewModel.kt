@@ -45,7 +45,7 @@ class PostListViewModel : ViewModel() {
                         data.postValue(
                             data.value?.map {
                                 if (it.id == postId)
-                                    it.copy(votes = response.data?.upvotePost?.votes)
+                                    it.copy(votes = response.data()?.upvotePost?.votes)
                                 else it
                             }
                         )
