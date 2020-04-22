@@ -60,5 +60,6 @@ class PostListFragment : Fragment(), PostListAdapter.PostListHandler {
     }
 
     override fun handle(details: PostDetails) {
+        viewModel.increaseVote(details.id)
     }
 }
