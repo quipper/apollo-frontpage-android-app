@@ -1,4 +1,4 @@
-package com.quipper.android.apollofrontpage
+package com.quipper.android.apollofrontpage.ui
 
 import androidx.lifecycle.ViewModel
 import com.quipper.android.apollofrontpage.model.PostsResult

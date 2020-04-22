@@ -20,20 +20,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@{@string/title(data.title)}"
-            tools:context=".PostListAdapter" />
+            tools:context=".ui.PostListAdapter" />
 
         <TextView
             android:id="@+id/author"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@{@string/author_name(data.author.firstName, data.author.lastName)}"
-            tools:context=".PostListAdapter" />
+            tools:context=".ui.PostListAdapter" />
 
         <TextView
             android:id="@+id/votes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@{@string/votes(data.votes)}"
-            tools:context=".PostListAdapter" />
+            tools:context=".ui.PostListAdapter" />
     </LinearLayout>
 </layout>

@@ -6,5 +6,5 @@ import com.quipper.android.apollofrontpage.fragment.PostDetails
 
 data class PostsResult(
     var posts: LiveData<List<PostDetails>>,
-    var error: LiveData<ApolloException>
+    var error: LiveData<Throwable>
 )

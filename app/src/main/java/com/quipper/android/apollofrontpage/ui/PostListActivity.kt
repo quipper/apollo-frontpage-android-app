@@ -1,8 +1,9 @@
-package com.quipper.android.apollofrontpage
+package com.quipper.android.apollofrontpage.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commit
+import com.quipper.android.apollofrontpage.R
 
 class PostListActivity : AppCompatActivity() {
 
