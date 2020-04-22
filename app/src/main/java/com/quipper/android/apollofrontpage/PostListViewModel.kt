@@ -31,4 +31,24 @@ class PostListViewModel : ViewModel() {
                 })
         }
     }
+
+    fun increaseVote(postId: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            client.mutate(UpvotePostMutation(postId))
+                .enqueue(object : ApolloCall.Callback<UpvotePostMutation.Data>() {
+
+                    override fun onFailure(e: ApolloException) = Unit
+
+                    override fun onResponse(response: Response<UpvotePostMutation.Data>) {
+                        data.postValue(
+                            data.value?.map {
+                                if (it.id == postId)
+                                    it.copy(votes = response.data?.upvotePost?.votes)
+                                else it
+                            }
+                        )
+                    }
+                })
+        }
+    }
 }
