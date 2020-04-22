@@ -34,11 +34,10 @@ class PostListFragment : Fragment(), PostListAdapter.PostListHandler {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.data.observe(viewLifecycleOwner, Observer {
+        viewModel.postResult.posts.observe(viewLifecycleOwner, Observer {
             it ?: return@Observer
             postListAdapter.submitList(it)
         })
-        viewModel.fetchData()
     }
 
     private fun initViews() {

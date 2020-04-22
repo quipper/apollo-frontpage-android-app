@@ -1,8 +1,7 @@
 package com.quipper.android.apollofrontpage.repository
 
-import com.quipper.android.apollofrontpage.model.Posts
+import com.quipper.android.apollofrontpage.model.PostsResult
 
 interface PostsRepository {
-    //TODO Change return type if required
-    fun getPosts(): List<Posts>
+    fun getPosts(): PostsResult
 }
