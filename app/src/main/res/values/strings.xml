@@ -4,4 +4,6 @@
     <string name="title">Title: %s</string>
     <string name="author_name">Author: %1$s %2$s</string>
     <string name="votes">Votes: %d</string>
+
+    <string name="common_error">Uh oh. Something went wrong</string>
 </resources>
