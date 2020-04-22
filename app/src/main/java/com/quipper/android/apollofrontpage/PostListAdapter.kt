@@ -1,4 +1,4 @@
-package com.quipper.android.apollofrontpage.ui
+package com.quipper.android.apollofrontpage
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

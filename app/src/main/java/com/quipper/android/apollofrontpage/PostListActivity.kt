@@ -1,9 +1,8 @@
-package com.quipper.android.apollofrontpage.ui
+package com.quipper.android.apollofrontpage
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commit
-import com.quipper.android.apollofrontpage.R
 
 class PostListActivity : AppCompatActivity() {
 
@@ -14,7 +13,9 @@ class PostListActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
             supportFragmentManager.commit {
-                replace(R.id.container, PostListFragment.newInstance())
+                replace(R.id.container,
+                    PostListFragment.newInstance()
+                )
             }
         }
     }
