@@ -37,6 +37,10 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
+
+    kapt{
+        correctErrorTypes = true
+    }
 }
 
 apollo {
@@ -55,8 +59,14 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
 
+    implementation 'com.airbnb.android:epoxy:3.9.0'
+    implementation 'com.airbnb.android:epoxy-databinding:3.9.0'
+    kapt 'com.airbnb.android:epoxy-processor:3.9.0'
+    annotationProcessor 'com.airbnb.android:epoxy-processor:3.9.0'
+
     implementation 'com.apollographql.apollo:apollo-runtime:1.4.5'
     implementation 'com.apollographql.apollo:apollo-android-support:1.4.5'
+    implementation 'com.apollographql.apollo:apollo-coroutines-support:1.4.5'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
