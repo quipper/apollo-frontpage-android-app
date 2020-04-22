@@ -37,6 +37,7 @@ class PostListFragment : Fragment(), PostListAdapter.PostListHandler {
 
         viewModel.data.observe(viewLifecycleOwner, Observer {
             it ?: return@Observer
+            binding.refresh.isRefreshing = false
             postListAdapter.submitList(it)
         })
         viewModel.fetchData()
@@ -51,6 +52,10 @@ class PostListFragment : Fragment(), PostListAdapter.PostListHandler {
                     DividerItemDecoration.VERTICAL
                 )
             )
+        }
+
+        binding.refresh.setOnRefreshListener {
+            viewModel.fetchData()
         }
     }
 
