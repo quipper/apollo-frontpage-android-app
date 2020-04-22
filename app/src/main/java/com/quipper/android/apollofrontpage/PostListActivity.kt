@@ -13,9 +13,7 @@ class PostListActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
             supportFragmentManager.commit {
-                replace(R.id.container,
-                    PostListFragment.newInstance()
-                )
+                replace(R.id.container, PostListFragment.newInstance())
             }
         }
     }

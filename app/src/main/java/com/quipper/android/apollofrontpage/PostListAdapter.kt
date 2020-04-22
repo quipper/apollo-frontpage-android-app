@@ -9,9 +9,7 @@ import com.quipper.android.apollofrontpage.databinding.PostListItemBinding
 import com.quipper.android.apollofrontpage.fragment.PostDetails
 
 class PostListAdapter(private val handler: PostListHandler) :
-    ListAdapter<PostDetails, PostListAdapter.ViewHolder>(
-        DIFF_CALLBACK
-    ) {
+    ListAdapter<PostDetails, PostListAdapter.ViewHolder>(DIFF_CALLBACK) {
 
     companion object {
 

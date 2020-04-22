@@ -15,14 +15,12 @@ import org.koin.android.ext.android.inject
 class PostListFragment : Fragment(), PostListAdapter.PostListHandler {
 
     companion object {
-        fun newInstance() =
-            PostListFragment()
+        fun newInstance() = PostListFragment()
     }
 
     private lateinit var binding: PostListFragmentBinding
     private val viewModel: PostListViewModel by inject()
-    private var postListAdapter: PostListAdapter =
-        PostListAdapter(this)
+    private var postListAdapter: PostListAdapter = PostListAdapter(this)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
