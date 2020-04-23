@@ -9,13 +9,10 @@ import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.api.Response
 import com.apollographql.apollo.exception.ApolloException
 import com.quipper.android.apollofrontpage.fragment.PostDetails
-import com.quipper.android.apollofrontpage.repository.PostsRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class PostListViewModel(
-    private val postsRepository: PostsRepository
-) : ViewModel() {
+class PostListViewModel : ViewModel() {
     val data = MutableLiveData<List<PostDetails>>()
 
     fun fetchData() {

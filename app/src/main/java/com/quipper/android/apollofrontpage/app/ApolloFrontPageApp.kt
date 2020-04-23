@@ -1,7 +1,6 @@
 package com.quipper.android.apollofrontpage.app
 
 import android.app.Application
-import com.quipper.android.apollofrontpage.di.repositoryModule
 import com.quipper.android.apollofrontpage.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -14,7 +13,6 @@ class ApolloFrontPageApp : Application() {
         startKoin {
             androidLogger()
             androidContext(this@ApolloFrontPageApp)
-            modules(repositoryModule)
             modules(viewModelModule)
         }
     }
