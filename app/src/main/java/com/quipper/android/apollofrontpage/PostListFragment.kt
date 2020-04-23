@@ -39,7 +39,7 @@ class PostListFragment : Fragment(), PostListAdapter.PostListHandler {
             it ?: return@Observer
             postListAdapter.submitList(it)
         })
-        viewModel.fetchData()
+        viewModel.loadData()
     }
 
     private fun initViews() {
@@ -55,6 +55,6 @@ class PostListFragment : Fragment(), PostListAdapter.PostListHandler {
     }
 
     override fun handle(details: PostDetails) {
-        viewModel.increaseVote(details.id)
+        viewModel.upvote(details.id)
     }
 }

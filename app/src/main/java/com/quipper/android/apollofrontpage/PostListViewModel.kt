@@ -1,6 +1,5 @@
 package com.quipper.android.apollofrontpage
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -19,13 +18,11 @@ class PostListViewModel : ViewModel() {
         .serverUrl("http://10.0.2.2:8080/graphql")
         .build()
 
-    fun fetchData() {
+    fun loadData() {
         viewModelScope.launch(Dispatchers.IO) {
             client.query(AllPostsQuery())
                 .enqueue(object : ApolloCall.Callback<AllPostsQuery.Data>() {
-                    override fun onFailure(e: ApolloException) {
-                        Log.e("hoge", "fuga", e)
-                    }
+                    override fun onFailure(e: ApolloException) = Unit
 
                     override fun onResponse(response: Response<AllPostsQuery.Data>) {
                         data.postValue(response.data()?.posts?.map { it.fragments.postDetails })
@@ -34,7 +31,7 @@ class PostListViewModel : ViewModel() {
         }
     }
 
-    fun increaseVote(postId: Int) {
+    fun upvote(postId: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             client.mutate(UpvotePostMutation(postId))
                 .enqueue(object : ApolloCall.Callback<UpvotePostMutation.Data>() {
