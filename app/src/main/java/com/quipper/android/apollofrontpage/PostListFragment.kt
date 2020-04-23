@@ -9,7 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.quipper.android.apollofrontpage.databinding.PostListFragmentBinding
 import com.quipper.android.apollofrontpage.fragment.PostDetails
-import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PostListFragment : Fragment(), PostListAdapter.PostListHandler {
 
@@ -18,7 +18,7 @@ class PostListFragment : Fragment(), PostListAdapter.PostListHandler {
     }
 
     private lateinit var binding: PostListFragmentBinding
-    private val viewModel: PostListViewModel by inject()
+    private val viewModel: PostListViewModel by viewModel()
     private var postListAdapter: PostListAdapter = PostListAdapter(this)
 
     override fun onCreateView(
