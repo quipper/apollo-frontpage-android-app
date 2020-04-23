@@ -14,7 +14,7 @@ import io.reactivex.schedulers.Schedulers.io
 class PostsRepositoryImpl(
     private val apolloClient: ApolloClient
 ) : PostsRepository {
-    private var resource = MutableLiveData<List<PostDetails>>()
+    private var posts = MutableLiveData<List<PostDetails>>()
     private var error = MutableLiveData<Throwable>()
 
     @SuppressLint("CheckResult")
@@ -23,10 +23,10 @@ class PostsRepositoryImpl(
             .observeOn(io())
             .flatMap { dataResponse -> Observable.fromArray(dataResponse.data()) }
             .subscribe({ data ->
-                resource.postValue(data?.posts?.map { it.fragments.postDetails })
+                posts.postValue(data?.posts?.map { it.fragments.postDetails })
             }, {
                 error.postValue(it)
             })
-        return PostsResult(resource, error)
+        return PostsResult(posts, error)
     }
 }
