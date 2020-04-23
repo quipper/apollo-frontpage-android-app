@@ -69,5 +69,5 @@ dependencies {
     compileOnly 'org.jetbrains:annotations:13.0'
     testCompileOnly 'org.jetbrains:annotations:13.0'
 
-    implementation "com.apollographql.apollo:apollo-normalized-cache-sqlite:2.0.0"
+    implementation "com.apollographql.apollo:apollo-normalized-cache:2.0.0"
 }
