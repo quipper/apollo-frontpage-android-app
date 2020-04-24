@@ -8,6 +8,6 @@ class PostListViewModel(
     private val postsRepository: PostsRepository
 ) : ViewModel() {
 
-    val postResult: PostsResult
+    val postsResult: PostsResult
         get() = postsRepository.getPosts()
 }

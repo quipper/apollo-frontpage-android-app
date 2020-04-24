@@ -5,6 +5,6 @@ import com.apollographql.apollo.exception.ApolloException
 import com.quipper.android.apollofrontpage.fragment.PostDetails
 
 data class PostsResult(
-    var posts: LiveData<List<PostDetails>>,
-    var error: LiveData<Throwable>
+    var postsData: LiveData<List<PostDetails>>,
+    var errorData: LiveData<Throwable>
 )

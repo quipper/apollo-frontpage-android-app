@@ -35,12 +35,12 @@ class PostListFragment : Fragment(), PostListAdapter.PostListHandler {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.postResult.posts.observe(viewLifecycleOwner, Observer {
+        viewModel.postsResult.postsData.observe(viewLifecycleOwner, Observer {
             it ?: return@Observer
             postListAdapter.submitList(it)
         })
 
-        viewModel.postResult.error.observe(viewLifecycleOwner, Observer {
+        viewModel.postsResult.errorData.observe(viewLifecycleOwner, Observer {
             it ?: return@Observer
             Toast.makeText(
                 requireContext(),
