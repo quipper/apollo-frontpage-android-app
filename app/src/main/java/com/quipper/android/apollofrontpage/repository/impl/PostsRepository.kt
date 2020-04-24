@@ -11,7 +11,7 @@ import com.quipper.android.apollofrontpage.repository.PostsRepository
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers.io
 
-class PostsRepositoryImpl(
+class PostsRepository(
     private val apolloClient: ApolloClient
 ) : PostsRepository {
     private var posts = MutableLiveData<List<PostDetails>>()

@@ -1,8 +1,6 @@
 package com.quipper.android.apollofrontpage.di
 
 import com.apollographql.apollo.ApolloClient
-import com.quipper.android.apollofrontpage.repository.PostsRepository
-import com.quipper.android.apollofrontpage.repository.impl.PostsRepositoryImpl
 import com.quipper.android.apollofrontpage.PostListViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -12,13 +10,9 @@ val apiModule = module {
 }
 
 val repositoryModule = module {
-    factory<PostsRepository> { PostsRepositoryImpl(get()) }
+    factory<com.quipper.android.apollofrontpage.repository.PostsRepository> { com.quipper.android.apollofrontpage.repository.impl.PostsRepository(get()) }
 }
 
 val viewModelModule = module {
-    viewModel {
-        PostListViewModel(
-            postsRepository = get()
-        )
-    }
+    viewModel { PostListViewModel(postsRepository = get()) }
 }

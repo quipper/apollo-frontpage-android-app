@@ -11,6 +11,7 @@ import org.koin.core.context.startKoin
 class ApolloFrontPageApp : Application() {
     override fun onCreate() {
         super.onCreate()
+
         // Start Koin
         startKoin {
             androidLogger()
