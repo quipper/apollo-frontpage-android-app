@@ -1,53 +1,38 @@
 package com.quipper.android.apollofrontpage
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.apollographql.apollo.ApolloCall
 import com.apollographql.apollo.ApolloClient
-import com.apollographql.apollo.api.Response
-import com.apollographql.apollo.exception.ApolloException
-import com.quipper.android.apollofrontpage.fragment.PostDetails
+import com.apollographql.apollo.coroutines.toFlow
+import com.quipper.android.apollofrontpage.type.Episode
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class PostListViewModel : ViewModel() {
 
-    val data = MutableLiveData<List<PostDetails>>()
     private val client = ApolloClient.builder()
-        .serverUrl("http://10.0.2.2:8080/graphql")
+        .serverUrl("http://10.0.2.2:3000/graphql")
         .build()
 
+    @ExperimentalCoroutinesApi
     fun loadData() {
         viewModelScope.launch(Dispatchers.IO) {
-            client.query(AllPostsQuery())
-                .enqueue(object : ApolloCall.Callback<AllPostsQuery.Data>() {
-                    override fun onFailure(e: ApolloException) = Unit
+            client.query(
+                HeroForEpisodeQuery(Episode.EMPIRE)
+            ).toFlow()
+                .collect {
+                    val data = it.data()?.hero
 
-                    override fun onResponse(response: Response<AllPostsQuery.Data>) {
-                        data.postValue(response.data()?.posts?.map { it.fragments.postDetails })
+                    data ?: return@collect
+
+                    if (data.asDroid != null) {
+                        data.asDroid.primaryFunction
+                    } else if (data.asHuman != null) {
+                        data.asHuman.homePlanet
                     }
-                })
-        }
-    }
-
-    fun upvote(postId: Int) {
-        viewModelScope.launch(Dispatchers.IO) {
-            client.mutate(UpvotePostMutation(postId))
-                .enqueue(object : ApolloCall.Callback<UpvotePostMutation.Data>() {
-
-                    override fun onFailure(e: ApolloException) = Unit
-
-                    override fun onResponse(response: Response<UpvotePostMutation.Data>) {
-                        data.postValue(
-                            data.value?.map {
-                                if (it.id == postId)
-                                    it.copy(votes = response.data()?.upvotePost?.votes)
-                                else it
-                            }
-                        )
-                    }
-                })
+                }
         }
     }
 }

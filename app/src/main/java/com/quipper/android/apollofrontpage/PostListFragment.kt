@@ -9,9 +9,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.quipper.android.apollofrontpage.databinding.PostListFragmentBinding
-import com.quipper.android.apollofrontpage.fragment.PostDetails
 
-class PostListFragment : Fragment(), PostListAdapter.PostListHandler {
+class PostListFragment : Fragment(){
 
     companion object {
 
@@ -20,7 +19,6 @@ class PostListFragment : Fragment(), PostListAdapter.PostListHandler {
 
     private lateinit var binding: PostListFragmentBinding
     private val viewModel: PostListViewModel by viewModels()
-    private var postListAdapter: PostListAdapter = PostListAdapter(this)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,26 +33,11 @@ class PostListFragment : Fragment(), PostListAdapter.PostListHandler {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.data.observe(viewLifecycleOwner, Observer {
-            it ?: return@Observer
-            postListAdapter.submitList(it)
-        })
         viewModel.loadData()
     }
 
     private fun initViews() {
         binding.postList.apply {
-            adapter = postListAdapter
-            addItemDecoration(
-                DividerItemDecoration(
-                    requireContext(),
-                    DividerItemDecoration.VERTICAL
-                )
-            )
         }
-    }
-
-    override fun handle(details: PostDetails) {
-        viewModel.upvote(details.id)
     }
 }
