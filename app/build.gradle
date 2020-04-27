@@ -67,4 +67,9 @@ dependencies {
     // for apollo library
     compileOnly 'org.jetbrains:annotations:13.0'
     testCompileOnly 'org.jetbrains:annotations:13.0'
+
+    // Koin
+    implementation "org.koin:koin-android:${koinVersion}"
+    implementation "org.koin:koin-androidx-scope:${koinVersion}"
+    implementation "org.koin:koin-androidx-viewmodel:${koinVersion}"
 }

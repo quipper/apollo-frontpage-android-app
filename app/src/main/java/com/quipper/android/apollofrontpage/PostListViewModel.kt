@@ -13,7 +13,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class PostListViewModel : ViewModel() {
-
     val data = MutableLiveData<List<PostDetails>>()
     private val client = ApolloClient.builder()
         .serverUrl("http://10.0.2.2:8080/graphql")

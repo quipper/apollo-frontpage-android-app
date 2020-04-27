@@ -5,21 +5,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.quipper.android.apollofrontpage.databinding.PostListFragmentBinding
 import com.quipper.android.apollofrontpage.fragment.PostDetails
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PostListFragment : Fragment(), PostListAdapter.PostListHandler {
 
     companion object {
-
         fun newInstance() = PostListFragment()
     }
 
     private lateinit var binding: PostListFragmentBinding
-    private val viewModel: PostListViewModel by viewModels()
+    private val viewModel: PostListViewModel by viewModel()
     private var postListAdapter: PostListAdapter = PostListAdapter(this)
 
     override fun onCreateView(
