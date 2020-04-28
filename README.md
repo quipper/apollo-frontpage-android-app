@@ -7,7 +7,7 @@ The code in `PostsRepository.kt` fetches data based on a GraphQL query defined i
 
 ## Workflow
 
-We followed following workflow while working GraphQL endpoint and the Apollo SDK.
+We followed the following workflow while working GraphQL endpoint and the Apollo SDK.
 
 - Write and test queries using [GraphiQL](https://github.com/graphql/graphiql).
 - Use the Apollo plugin to generate model types from the schema and queries.
@@ -17,7 +17,7 @@ We followed following workflow while working GraphQL endpoint and the Apollo SDK
 
 Branch | Description
 :--: | :--:
-master | The master branch contains the GraphQL implementation using RxJava2 support  |
+master | RxJava2 Support  |
 
 ## Installation
 
