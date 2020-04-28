@@ -3,8 +3,10 @@ package com.quipper.android.apollofrontpage.repository.impl
 import android.annotation.SuppressLint
 import androidx.lifecycle.MutableLiveData
 import com.apollographql.apollo.ApolloClient
+import com.apollographql.apollo.rx2.rxMutate
 import com.apollographql.apollo.rx2.rxQuery
 import com.quipper.android.apollofrontpage.AllPostsQuery
+import com.quipper.android.apollofrontpage.UpvotePostMutation
 import com.quipper.android.apollofrontpage.fragment.PostDetails
 import com.quipper.android.apollofrontpage.model.PostsResult
 import com.quipper.android.apollofrontpage.repository.PostsRepository
@@ -24,6 +26,25 @@ class PostsRepository(
             .flatMap { dataResponse -> Observable.fromArray(dataResponse.data()) }
             .subscribe({ data ->
                 postsData.postValue(data?.posts?.map { it.fragments.postDetails })
+            }, {
+                errorData.postValue(it)
+            })
+        return PostsResult(postsData, errorData)
+    }
+
+    @SuppressLint("CheckResult")
+    override fun upVote(postId: Int): PostsResult {
+        apolloClient.rxMutate(UpvotePostMutation(postId))
+            .subscribeOn(io())
+            .observeOn(io())
+            .subscribe({ data ->
+                postsData.postValue(
+                    postsData.value?.map {
+                        if (it.id == postId)
+                            it.copy(votes = data.data()?.upvotePost?.votes)
+                        else it
+                    }
+                )
             }, {
                 errorData.postValue(it)
             })

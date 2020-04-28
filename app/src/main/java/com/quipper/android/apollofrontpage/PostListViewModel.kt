@@ -10,4 +10,8 @@ class PostListViewModel(
 
     val postsResult: PostsResult
         get() = postsRepository.getPosts()
+
+    fun upVote(postId: Int): PostsResult {
+        return postsRepository.upVote(postId)
+    }
 }
