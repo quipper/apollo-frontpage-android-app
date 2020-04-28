@@ -44,7 +44,7 @@ class PostListFragment : Fragment(), PostListAdapter.PostListHandler {
             )
         }
     }
-    
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
