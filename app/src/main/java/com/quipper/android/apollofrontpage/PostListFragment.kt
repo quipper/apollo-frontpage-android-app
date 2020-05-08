@@ -4,13 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.quipper.android.apollofrontpage.databinding.PostListFragmentBinding
 import com.quipper.android.apollofrontpage.fragment.PostDetails
-import com.quipper.android.apollofrontpage.model.PostsResult
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PostListFragment : Fragment(), PostListAdapter.PostListHandler {
@@ -48,30 +46,12 @@ class PostListFragment : Fragment(), PostListAdapter.PostListHandler {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.postsResult.apply {
-            handlePostsResult()
-        }
-    }
-
-    private fun PostsResult.handlePostsResult() {
-        postsData.observe(viewLifecycleOwner, Observer {
-            it ?: return@Observer
+        viewModel.postsData.observe(viewLifecycleOwner, Observer {
             postListAdapter.submitList(it)
-        })
-
-        errorData.observe(viewLifecycleOwner, Observer {
-            it ?: return@Observer
-            Toast.makeText(
-                requireContext(),
-                resources.getString(R.string.common_error),
-                Toast.LENGTH_SHORT
-            ).show()
         })
     }
 
     override fun handle(details: PostDetails) {
-        viewModel.upVote(details.id).apply {
-            handlePostsResult()
-        }
+        viewModel.upVote(details.id)
     }
 }

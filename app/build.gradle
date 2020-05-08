@@ -48,29 +48,30 @@ dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.core:core-ktx:1.2.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
-    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    //Components
+    implementation "androidx.appcompat:appcompat:${appcompatVer}"
+    implementation "androidx.recyclerview:recyclerview:${recyclerviewVer}"
+    implementation "androidx.core:core-ktx:${androidXCoreVer}"
+    implementation "androidx.constraintlayout:constraintlayout:${constraintlayoutVer}"
+    implementation "androidx.fragment:fragment-ktx:${fragmentVer}"
 
-    implementation "com.apollographql.apollo:apollo-runtime:${graphQLVersion}"
-    implementation "com.apollographql.apollo:apollo-android-support:${graphQLVersion}"
-    implementation "com.apollographql.apollo:apollo-rx2-support:${graphQLVersion}"
+    //Lifecycle
+    implementation "androidx.lifecycle:lifecycle-extensions:${lifecycleVer}"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:${lifecycleVer}"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:${lifecycleVer}"
 
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    //Apollo
+    implementation "com.apollographql.apollo:apollo-runtime:${graphQLVer}"
+    implementation "com.apollographql.apollo:apollo-android-support:${graphQLVer}"
+    implementation "com.apollographql.apollo:apollo-rx2-support:${graphQLVer}"
+    implementation "com.apollographql.apollo:apollo-coroutines-support:${graphQLVer}"
 
-    implementation "androidx.fragment:fragment-ktx:1.2.4"
-
-    // for apollo library
-    compileOnly 'org.jetbrains:annotations:13.0'
-    testCompileOnly 'org.jetbrains:annotations:13.0'
+    //Required For apollo library
+    compileOnly "org.jetbrains:annotations:${jetbrainsAnnotationsVer}"
+    testCompileOnly "org.jetbrains:annotations:${jetbrainsAnnotationsVer}"
 
     // Koin
-    implementation "org.koin:koin-android:${koinVersion}"
-    implementation "org.koin:koin-androidx-scope:${koinVersion}"
-    implementation "org.koin:koin-androidx-viewmodel:${koinVersion}"
+    implementation "org.koin:koin-android:${koinVer}"
+    implementation "org.koin:koin-androidx-scope:${koinVer}"
+    implementation "org.koin:koin-androidx-viewmodel:${koinVer}"
 }

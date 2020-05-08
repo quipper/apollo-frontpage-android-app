@@ -1,53 +1,31 @@
 package com.quipper.android.apollofrontpage.repository.impl
 
-import android.annotation.SuppressLint
-import androidx.lifecycle.MutableLiveData
 import com.apollographql.apollo.ApolloClient
-import com.apollographql.apollo.rx2.rxMutate
-import com.apollographql.apollo.rx2.rxQuery
+import com.apollographql.apollo.coroutines.toFlow
 import com.quipper.android.apollofrontpage.AllPostsQuery
 import com.quipper.android.apollofrontpage.UpvotePostMutation
 import com.quipper.android.apollofrontpage.fragment.PostDetails
-import com.quipper.android.apollofrontpage.model.PostsResult
 import com.quipper.android.apollofrontpage.repository.PostsRepository
-import io.reactivex.Observable
-import io.reactivex.schedulers.Schedulers.io
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class PostsRepository(
     private val apolloClient: ApolloClient
 ) : PostsRepository {
-    private var postsData = MutableLiveData<List<PostDetails>>()
-    private var errorData = MutableLiveData<Throwable>()
 
-    @SuppressLint("CheckResult")
-    override fun getPosts(): PostsResult {
-        apolloClient.rxQuery(AllPostsQuery()).subscribeOn(io())
-            .observeOn(io())
-            .flatMap { dataResponse -> Observable.fromArray(dataResponse.data()) }
-            .subscribe({ data ->
-                postsData.postValue(data?.posts?.map { it.fragments.postDetails })
-            }, {
-                errorData.postValue(it)
-            })
-        return PostsResult(postsData, errorData)
-    }
+    override fun getPosts(): Flow<List<PostDetails>?> =
+        apolloClient.query(AllPostsQuery())
+            .toFlow()
+            .map { response ->
+                response.data()?.posts?.map {
+                    it.fragments.postDetails
+                }
+            }
 
-    @SuppressLint("CheckResult")
-    override fun upVote(postId: Int): PostsResult {
-        apolloClient.rxMutate(UpvotePostMutation(postId))
-            .subscribeOn(io())
-            .observeOn(io())
-            .subscribe({ data ->
-                postsData.postValue(
-                    postsData.value?.map {
-                        if (it.id == postId)
-                            it.copy(votes = data.data()?.upvotePost?.votes)
-                        else it
-                    }
-                )
-            }, {
-                errorData.postValue(it)
-            })
-        return PostsResult(postsData, errorData)
-    }
+    override fun upVote(postId: Int): Flow<UpvotePostMutation.Data?> =
+        apolloClient.mutate(UpvotePostMutation(postId))
+            .toFlow()
+            .map { response -> response.data() }
 }
