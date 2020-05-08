@@ -1,17 +1,54 @@
 package com.quipper.android.apollofrontpage
 
-import androidx.lifecycle.ViewModel
-import com.quipper.android.apollofrontpage.model.PostsResult
+import androidx.lifecycle.*
+import com.quipper.android.apollofrontpage.fragment.PostDetails
 import com.quipper.android.apollofrontpage.repository.PostsRepository
+import io.reactivex.Observable
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class PostListViewModel(
     private val postsRepository: PostsRepository
 ) : ViewModel() {
 
-    val postsResult: PostsResult
-        get() = postsRepository.getPosts()
+    private val _postsData = MediatorLiveData<List<PostDetails>>()
+    val postsData: LiveData<List<PostDetails>>
+        get() = _postsData.distinctUntilChanged()
 
-    fun upVote(postId: Int): PostsResult {
-        return postsRepository.upVote(postId)
+    private var _errorData = MutableLiveData<Throwable>()
+    val errorData: LiveData<Throwable>
+        get() = _errorData.distinctUntilChanged()
+
+    init {
+        fetchPosts()
+    }
+
+    private fun fetchPosts() {
+        viewModelScope.launch(Dispatchers.IO) {
+            postsRepository.getPosts()
+                .flatMap { dataResponse -> Observable.fromArray(dataResponse.data()) }
+                .subscribe({ data ->
+                    _postsData.postValue(data?.posts?.map { it.fragments.postDetails })
+                }, {
+                    _errorData.postValue(it)
+                })
+        }
+    }
+
+    fun upVote(postId: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            postsRepository.upVote(postId)
+                .subscribe({ data ->
+                    _postsData.postValue(
+                        _postsData.value?.map {
+                            if (it.id == postId)
+                                it.copy(votes = data.data()?.upvotePost?.votes)
+                            else it
+                        }
+                    )
+                }, {
+                    _errorData.postValue(it)
+                })
+        }
     }
 }

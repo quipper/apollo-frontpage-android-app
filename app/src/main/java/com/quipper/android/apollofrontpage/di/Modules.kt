@@ -12,7 +12,7 @@ val apiModule = module {
 }
 
 val repositoryModule = module {
-    factory<PostsRepository> { PostsRepositoryImpl(get()) }
+    factory<PostsRepository> { PostsRepositoryImpl(apolloClient = get()) }
 }
 
 val viewModelModule = module {
