@@ -3,7 +3,6 @@ package com.quipper.android.apollofrontpage
 import androidx.lifecycle.*
 import com.quipper.android.apollofrontpage.fragment.PostDetails
 import com.quipper.android.apollofrontpage.repository.PostsRepository
-import io.reactivex.Observable
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -26,7 +25,6 @@ class PostListViewModel(
     private fun fetchPosts() {
         viewModelScope.launch(Dispatchers.IO) {
             postsRepository.getPosts()
-                .flatMap { dataResponse -> Observable.fromArray(dataResponse.data()) }
                 .subscribe({ data ->
                     _postsData.postValue(data?.posts?.map { it.fragments.postDetails })
                 }, {

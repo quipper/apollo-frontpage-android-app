@@ -14,8 +14,10 @@ class PostsRepository(
     private val apolloClient: ApolloClient
 ) : PostsRepository {
 
-    override fun getPosts(): Observable<Response<AllPostsQuery.Data>> {
-        return apolloClient.rxQuery(AllPostsQuery())
+    override fun getPosts(): Single<AllPostsQuery.Data> {
+        return Single.fromObservable(
+            apolloClient.rxQuery(AllPostsQuery())
+                .flatMap { dataResponse -> Observable.fromArray(dataResponse.data()) })
     }
 
     override fun upVote(postId: Int): Single<Response<UpvotePostMutation.Data>> {
