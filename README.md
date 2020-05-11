@@ -18,6 +18,7 @@ We followed the following workflow while working GraphQL endpoint and the Apollo
 Branch | Description
 :--: | :--:
 master | RxJava2 Support  |
+coroutines_impl | Coroutines Support  |
 
 ## Installation
 
