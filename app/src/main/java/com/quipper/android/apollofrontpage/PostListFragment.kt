@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -31,16 +32,6 @@ class PostListFragment : Fragment(), PostListAdapter.PostListHandler {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        viewModel.data.observe(viewLifecycleOwner, Observer {
-            it ?: return@Observer
-            postListAdapter.submitList(it)
-        })
-        viewModel.fetchData()
-    }
-
     private fun initViews() {
         binding.postList.apply {
             adapter = postListAdapter
@@ -53,7 +44,26 @@ class PostListFragment : Fragment(), PostListAdapter.PostListHandler {
         }
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        viewModel.postsData.observe(viewLifecycleOwner, Observer {
+            it ?: return@Observer
+            postListAdapter.submitList(it)
+        })
+
+        viewModel.errorData.observe(viewLifecycleOwner, Observer {
+            it ?: return@Observer
+            Toast.makeText(
+                requireContext(),
+                resources.getString(R.string.common_error),
+                Toast.LENGTH_SHORT
+            ).show()
+        })
+
+    }
+
     override fun handle(details: PostDetails) {
-        viewModel.increaseVote(details.id)
+        viewModel.upVote(details.id)
     }
 }

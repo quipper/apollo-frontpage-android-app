@@ -2,6 +2,7 @@
 
 ext {
     koinVersion = "2.1.5"
+    graphQLVersion = "1.4.5"
 }
 
 buildscript {
