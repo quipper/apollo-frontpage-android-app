@@ -18,7 +18,7 @@ We followed the following workflow while working GraphQL endpoint and the Apollo
 Branch | Description
 :--: | :--:
 master | RxJava2 Support  |
-coroutines_impl | Coroutines Support  |
+[coroutines_impl](https://github.com/quipper/apollo-frontpage-android-app/tree/coroutines_impl) | Coroutines Support  |
 
 ## Installation
 
